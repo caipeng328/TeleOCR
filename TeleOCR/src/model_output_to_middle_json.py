@@ -1,10 +1,10 @@
 from tqdm import tqdm
-from NaviOCR.tools.pdf_image_tools import get_page_size
-from NaviOCR.src.vlm_magic_model import MagicModel
-from NaviOCR.tools.cut_image import cut_image_and_table 
-from NaviOCR.tools.enum_class import ContentType
-from NaviOCR.tools.hash_utils import bytes_md5
-from NaviOCR.version import __version__
+from TeleOCR.tools.pdf_image_tools import get_page_size
+from TeleOCR.src.vlm_magic_model import MagicModel
+from TeleOCR.tools.cut_image import cut_image_and_table 
+from TeleOCR.tools.enum_class import ContentType
+from TeleOCR.tools.hash_utils import bytes_md5
+from TeleOCR.version import __version__
 
 
 def blocks_to_page_info(page_blocks,image_dict,page,image_writer,page_index) -> dict:

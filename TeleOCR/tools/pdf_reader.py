@@ -4,7 +4,7 @@ from io import BytesIO
 
 from loguru import logger
 from PIL import Image
-import NaviOCR.config as CONFIG
+import TeleOCR.config as CONFIG
 from pypdfium2 import PdfBitmap, PdfDocument, PdfPage 
 
 

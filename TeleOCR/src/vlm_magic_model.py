@@ -3,10 +3,10 @@ from typing import Literal
 
 from loguru import logger
 
-from NaviOCR.tools.boxbase import calculate_overlap_area_in_bbox1_area_ratio
-from NaviOCR.tools.enum_class import ContentType, BlockType
-from NaviOCR.tools.guess_suffix_or_lang import guess_language_by_text
-from NaviOCR.tools.magic_model_utils import reduct_overlap, tie_up_category_by_index
+from TeleOCR.tools.boxbase import calculate_overlap_area_in_bbox1_area_ratio
+from TeleOCR.tools.enum_class import ContentType, BlockType
+from TeleOCR.tools.guess_suffix_or_lang import guess_language_by_text
+from TeleOCR.tools.magic_model_utils import reduct_overlap, tie_up_category_by_index
 
 
 class MagicModel:

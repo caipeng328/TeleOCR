@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "NaviOCR"
+name = "TeleOCR"
 version = "0.1.0"
-description = "NAVIDC-OCR inference package with Transformers and vLLM plugin support."
+description = "TELEOCR inference package with Transformers and vLLM plugin support."
 readme = "README.md"
 requires-python = ">=3.10,<3.13"
 
@@ -70,12 +70,12 @@ dev = [
 ]
 
 all = [
-    "NaviOCR[server]",
+    "TeleOCR[server]",
 ]
 
 
 [project.entry-points."vllm.general_plugins"]
-NaviOCR_vllm = "NaviOCR_vllm:register"
+TeleOCR_vllm = "TeleOCR_vllm:register"
 
 
 [tool.setuptools]
@@ -83,10 +83,10 @@ include-package-data = true
 
 
 [tool.setuptools.packages.find]
-where = [".", "NaviOCR-vllm"]
+where = [".", "TeleOCR-vllm"]
 include = [
-    "NaviOCR*",
-    "NaviOCR_vllm*",
+    "TeleOCR*",
+    "TeleOCR_vllm*",
 ]
 
 

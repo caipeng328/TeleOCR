@@ -4,14 +4,14 @@ import argparse
 import asyncio
 from pathlib import Path
 
-from NaviOCR.engine import aio_do_parse, do_parse
-from NaviOCR.tools.read_file import read_fn
-import NaviOCR.config as CONFIG
+from TeleOCR.engine import aio_do_parse, do_parse
+from TeleOCR.tools.read_file import read_fn
+import TeleOCR.config as CONFIG
 
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="NaviOCR batch inference"
+        description="TeleOCR batch inference"
     )
 
     parser.add_argument(
@@ -33,7 +33,7 @@ def parse_args():
         nargs="*",
         default=[],
         metavar="KEY=VALUE",
-        help="运行时覆盖 NaviOCR 配置",
+        help="运行时覆盖 TeleOCR 配置",
     )
 
     parser.add_argument(

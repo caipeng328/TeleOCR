@@ -2,7 +2,7 @@
 包含两个MagicModel类中重复使用的方法和逻辑
 """
 from typing import List, Dict, Any, Callable
-from NaviOCR.tools.boxbase import bbox_distance, bbox_center_distance, is_in
+from TeleOCR.tools.boxbase import bbox_distance, bbox_center_distance, is_in
 
 
 def reduct_overlap(bboxes: List[Dict[str, Any]]) -> List[Dict[str, Any]]:

@@ -8,13 +8,13 @@ import io
 from loguru import logger
 from PIL import Image, ImageOps
 
-import NaviOCR.config as CONFIG
-from NaviOCR.tools.check_sys_env import is_windows_environment
-from NaviOCR.tools.os_env_config import get_load_images_timeout
-from NaviOCR.tools.pdf_reader import image_to_b64str, image_to_bytes, page_to_image
-from NaviOCR.tools.enum_class import ImageType
-from NaviOCR.tools.hash_utils import str_sha256
-from NaviOCR.tools.pdf_page_id import get_end_page_id
+import TeleOCR.config as CONFIG
+from TeleOCR.tools.check_sys_env import is_windows_environment
+from TeleOCR.tools.os_env_config import get_load_images_timeout
+from TeleOCR.tools.pdf_reader import image_to_b64str, image_to_bytes, page_to_image
+from TeleOCR.tools.enum_class import ImageType
+from TeleOCR.tools.hash_utils import str_sha256
+from TeleOCR.tools.pdf_page_id import get_end_page_id
 from concurrent.futures import ProcessPoolExecutor, TimeoutError as FuturesTimeoutError
 
 def convert_pdf_bytes_to_bytes(pdf_bytes, valid_single_page_ids=None):
@@ -102,7 +102,7 @@ def load_images_from_pdf(
         start_page_id (int, optional): 起始页码. Defaults to 0.
         end_page_id (int | None, optional): 结束页码. Defaults to None.
         image_type (ImageType, optional): 图片类型. Defaults to ImageType.PIL.
-        timeout (int | None, optional): 超时时间(秒)。如果为 None，则从环境变量 NaviOCR_PDF_LOAD_IMAGES_TIMEOUT 读取，若未设置则默认为 300 秒。
+        timeout (int | None, optional): 超时时间(秒)。如果为 None，则从环境变量 TeleOCR_PDF_LOAD_IMAGES_TIMEOUT 读取，若未设置则默认为 300 秒。
         threads (int): 进程数,默认 4
 
     Raises:

@@ -11,9 +11,9 @@ from .post_process import post_process
 from .structs import BLOCK_TYPES, ContentBlock
 from .vlm_client import DEFAULT_SYSTEM_PROMPT, SamplingParams, new_vlm_client
 from .vlm_client.utils import gather_tasks, get_png_bytes, get_rgb_image
-import NaviOCR.config as CONFIG
+import TeleOCR.config as CONFIG
 
-class NaviOCRSamplingParams(SamplingParams):
+class TeleOCRSamplingParams(SamplingParams):
     def __init__(
         self,
         temperature: float | None = 0.0,
@@ -55,16 +55,16 @@ DEFAULT_PROMPTS: dict[str, str] = {
 }
 
 DEFAULT_SAMPLING_PARAMS: dict[str, SamplingParams] = {
-    "text":NaviOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.05),
-    "table":NaviOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.005),
-    "formula":NaviOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.05),
-    "code":NaviOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.05),
-    "char":NaviOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.005),
-    "layout":NaviOCRSamplingParams(),
-    "seal":NaviOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.005),
-    "default":NaviOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.05),
-    "table_structure":NaviOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.005),
-    "formula_structure":NaviOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.05),
+    "text":TeleOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.05),
+    "table":TeleOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.005),
+    "formula":TeleOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.05),
+    "code":TeleOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.05),
+    "char":TeleOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.005),
+    "layout":TeleOCRSamplingParams(),
+    "seal":TeleOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.005),
+    "default":TeleOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.05),
+    "table_structure":TeleOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.005),
+    "formula_structure":TeleOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.05),
 }
 
 ANGLE_MAPPING: dict[str, Literal[0, 90, 180, 270]] = {
@@ -123,7 +123,7 @@ def _convert_bbox(bbox: Sequence[int] | Sequence[str] | str, keep_four_numbers: 
 
     return [num / 1000.0 for num in padding_bbox]
 
-class NaviOCRClientHelper:
+class TeleOCRClientHelper:
     def __init__(
         self,
         backend: str,
@@ -366,7 +366,7 @@ class NaviOCRClientHelper:
         return await loop.run_in_executor(executor, self.post_process, blocks)
 
 
-class NaviOCRClient:
+class TeleOCRClient:
     def __init__(
         self,
         backend: Literal[
@@ -475,7 +475,7 @@ class NaviOCRClient:
             max_retries=max_retries,
             retry_backoff_factor=retry_backoff_factor,
         )
-        self.helper = NaviOCRClientHelper(
+        self.helper = TeleOCRClientHelper(
             backend=backend,
             prompts=prompts,
             sampling_params=sampling_params,

@@ -3,12 +3,12 @@ import os
 import time
 from loguru import logger
 
-from NaviOCR.tools.pdf_image_tools import convert_pdf_bytes_to_bytes
-from NaviOCR.data_reader_writer import FileBasedDataWriter, ImageDataWriter
-from NaviOCR.tools.draw_bbox import draw_layout_bbox
-from NaviOCR.src.vlm_middle_json_mkcontent import union_make
-from NaviOCR.src.vlm_analyze import doc_analyze
-from NaviOCR.src.vlm_analyze import aio_doc_analyze 
+from TeleOCR.tools.pdf_image_tools import convert_pdf_bytes_to_bytes
+from TeleOCR.data_reader_writer import FileBasedDataWriter, ImageDataWriter
+from TeleOCR.tools.draw_bbox import draw_layout_bbox
+from TeleOCR.src.vlm_middle_json_mkcontent import union_make
+from TeleOCR.src.vlm_analyze import doc_analyze
+from TeleOCR.src.vlm_analyze import aio_doc_analyze 
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 

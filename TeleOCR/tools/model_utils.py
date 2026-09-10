@@ -5,7 +5,7 @@ from PIL import Image
 from loguru import logger
 import numpy as np
 
-from NaviOCR.tools.boxbase import get_minbox_if_overlap_by_ratio
+from TeleOCR.tools.boxbase import get_minbox_if_overlap_by_ratio
 
 try:
     import torch
@@ -436,7 +436,7 @@ def clean_vram(device, vram_threshold=8):
 
 
 def get_vram(device) -> int:
-    env_vram = os.getenv("NaviOCR_VIRTUAL_VRAM_SIZE")
+    env_vram = os.getenv("TeleOCR_VIRTUAL_VRAM_SIZE")
 
     # 如果环境变量已配置,尝试解析并返回
     if env_vram is not None:
@@ -446,10 +446,10 @@ def get_vram(device) -> int:
                 return total_memory
             else:
                 logger.warning(
-                    f"NaviOCR_VIRTUAL_VRAM_SIZE value '{env_vram}' is not positive, falling back to auto-detection")
+                    f"TeleOCR_VIRTUAL_VRAM_SIZE value '{env_vram}' is not positive, falling back to auto-detection")
         except ValueError:
             logger.warning(
-                f"NaviOCR_VIRTUAL_VRAM_SIZE value '{env_vram}' is not a valid integer, falling back to auto-detection")
+                f"TeleOCR_VIRTUAL_VRAM_SIZE value '{env_vram}' is not a valid integer, falling back to auto-detection")
 
     # 环境变量未配置或配置错误,根据device自动获取
     total_memory = 1

@@ -3,14 +3,14 @@ from loguru import logger
 from ..data_reader_writer import DataWriter
 from ..tools.enum_class import ImageType
 from .model_output_to_middle_json import result_to_middle_json
-from NaviOCR.vlm_utils.NaviOCR_model import NaviOCRMODEL_SERVICE
-from NaviOCR.tools.pdf_image_tools import load_images_from_pdf
-import NaviOCR.config as CONFIG
+from TeleOCR.vlm_utils.TeleOCR_model import TeleOCRMODEL_SERVICE
+from TeleOCR.tools.pdf_image_tools import load_images_from_pdf
+import TeleOCR.config as CONFIG
 
 def _init_model():
     backend=CONFIG.BACKEND
     model_path = CONFIG.model_path
-    predictor = NaviOCRMODEL_SERVICE.get_model(backend, model_path, None)
+    predictor = TeleOCRMODEL_SERVICE.get_model(backend, model_path, None)
     return predictor
 
 async def aio_doc_analyze(

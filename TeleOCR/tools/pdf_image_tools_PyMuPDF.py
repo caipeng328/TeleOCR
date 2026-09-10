@@ -8,13 +8,13 @@ import numpy as np
 from loguru import logger
 from PIL import Image, ImageOps
 
-import NaviOCR.config as CONFIG
-from NaviOCR.tools.check_sys_env import is_windows_environment
-from NaviOCR.tools.enum_class import ImageType
-from NaviOCR.tools.hash_utils import str_sha256
-from NaviOCR.tools.os_env_config import get_load_images_timeout
-from NaviOCR.tools.pdf_page_id import get_end_page_id
-from NaviOCR.tools.pdf_reader import image_to_b64str, image_to_bytes
+import TeleOCR.config as CONFIG
+from TeleOCR.tools.check_sys_env import is_windows_environment
+from TeleOCR.tools.enum_class import ImageType
+from TeleOCR.tools.hash_utils import str_sha256
+from TeleOCR.tools.os_env_config import get_load_images_timeout
+from TeleOCR.tools.pdf_page_id import get_end_page_id
+from TeleOCR.tools.pdf_reader import image_to_b64str, image_to_bytes
 
 def convert_pdf_bytes_to_bytes(pdf_bytes,valid_single_page_ids=None):
     pdf = fitz.open(stream=pdf_bytes, filetype="pdf")

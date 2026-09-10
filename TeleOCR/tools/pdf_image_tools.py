@@ -1,6 +1,6 @@
 import importlib
 
-import NaviOCR.config as CONFIG
+import TeleOCR.config as CONFIG
 
 PDF_MODULES = {
     "PyMuPDF": ".pdf_image_tools_PyMuPDF",

@@ -11,7 +11,7 @@ except ImportError:
 
 
 # 定义配置文件名常量
-CONFIG_FILE_NAME = os.getenv('NaviOCR_TOOLS_CONFIG_JSON', 'NaviOCR.json')
+CONFIG_FILE_NAME = os.getenv('TeleOCR_TOOLS_CONFIG_JSON', 'TeleOCR.json')
 
 
 def read_config():
@@ -73,7 +73,7 @@ def parse_bucket_key(s3_full_path: str):
 
 
 def get_device():
-    device_mode = os.getenv('NaviOCR_DEVICE_MODE', None)
+    device_mode = os.getenv('TeleOCR_DEVICE_MODE', None)
     if device_mode is not None:
         return device_mode
     else:
@@ -91,13 +91,13 @@ def get_device():
 
 
 def get_formula_enable(formula_enable):
-    formula_enable_env = os.getenv('NaviOCR_FORMULA_ENABLE')
+    formula_enable_env = os.getenv('TeleOCR_FORMULA_ENABLE')
     formula_enable = formula_enable if formula_enable_env is None else formula_enable_env.lower() == 'true'
     return formula_enable
 
 
 def get_table_enable(table_enable):
-    table_enable_env = os.getenv('NaviOCR_TABLE_ENABLE')
+    table_enable_env = os.getenv('TeleOCR_TABLE_ENABLE')
     table_enable = table_enable if table_enable_env is None else table_enable_env.lower() == 'true'
     return table_enable
 

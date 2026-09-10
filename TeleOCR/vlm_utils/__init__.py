@@ -3,9 +3,9 @@ import importlib
 
 
 __lazy_attrs__ = {
-    "NaviOCRClient": (".NaviOCR_client", "NaviOCRClient"),
-    "NaviOCRSamplingParams": (".NaviOCR_client", "NaviOCRSamplingParams"),
-    "NaviOCRLogitsProcessor": (".vlm_client.vllm_v1_no_repeat_ngram", "VllmV1NoRepeatNGramLogitsProcessor"),
+    "TeleOCRClient": (".TeleOCR_client", "TeleOCRClient"),
+    "TeleOCRSamplingParams": (".TeleOCR_client", "TeleOCRSamplingParams"),
+    "TeleOCRLogitsProcessor": (".vlm_client.vllm_v1_no_repeat_ngram", "VllmV1NoRepeatNGramLogitsProcessor"),
 }
 
 

@@ -2,7 +2,7 @@
 # Model
 # =========================
 
-model_path = "StarDoc-AI/NaviDC-OCR"
+model_path = "StarDoc-AI/TeleOCR"
 
 BACKEND = "vllm-async-engine"
 # [vllm-engine, vllm-async-engine]
@@ -91,7 +91,7 @@ def update(overrides):
 def show():
     """打印最终配置。"""
 
-    print("\n========== NaviOCR Config ==========")
+    print("\n========== TeleOCR Config ==========")
 
     for key, value in globals().items():
 

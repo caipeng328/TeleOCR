@@ -1,11 +1,11 @@
 <div align="center">
 
-# <img src="assets/icon.png" height="64" /> NaviDC-OCR
+# <img src="assets/icon.png" height="64" /> TeleOCR
 
-**NaviDC-OCR: Navigating Document Parsing Across Digital and Camera-Captured Documents**
+**TeleOCR: Navigating Document Parsing Across Digital and Camera-Captured Documents**
 
 [![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
-[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Model-orange.svg)](https://huggingface.co/StarDoc-AI/NaviDC-OCR)
+[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Model-orange.svg)](https://huggingface.co/StarDoc-AI/TeleOCR)
 [![Papers with Code: SOTA on OmniDocBench v1.6](https://paperswithcode.co/api/v1/papers/2608.12898/leaderboard-badge.svg?eval=25856&live=1)](https://paperswithcode.co/api/v1/papers/2608.12898/leaderboard-badge-link?eval=25856)
 
 **A lightweight Vision-Language Model for unified document parsing across digital and camera-captured documents.**
@@ -16,6 +16,7 @@
 
 ## 🔥 News
 
+- **2026/09/10** - We have renamed NaviDC-OCR to TeleOCR, and all subsequent model iterations will be developed and released under the TeleOCR version.
 - **2026/09/01** - We noticed that EMNLP 2026 is hosting the [Dr.DocBench Challenge](https://eval.ai/web/challenges/challenge-page/2717/overview), a document parsing competition. We evaluated NaviDC-OCR with its native weights, achieving better results than MinerU 2.5 Pro and PaddleOCR-VL 1.6. Detailed results are shown below **dr.docbench-challenge**. We welcome the use of NaviDC‑OCR for competitions. Going forward, we will continue to deliver competitive parsing models for the community.
 - **2026/08/29** — Thanks to Nandraj for the GGUF conversion and llama.cpp support  [🔗 NaviDC-OCR-GGUF](https://huggingface.co/nandraj/NaviDC-OCR-GGUF), and to the community for sharing their experience deploying NaviDC-OCR on [Ascend 910B!](https://zhuanlan.zhihu.com/p/2078516899093155893)
 - **2026/08/17** — NaviDC-OCR [model weights](https://huggingface.co/StarDoc-AI/NaviDC-OCR) and [technical report](https://arxiv.org/pdf/2608.12898) have been released.
@@ -24,11 +25,11 @@
 
 ## 📖 Introduction
 
-**NaviDC-OCR** is a lightweight (~1.2B parameters), open-source Vision-Language Model designed specifically for document understanding.
+**TeleOCR** is a lightweight (~1.2B parameters), open-source Vision-Language Model designed specifically for document understanding.
 
-Unlike existing approaches that primarily focus on either **digital documents** or **camera-captured documents**, NaviDC-OCR provides a unified framework for both scenarios.
+Unlike existing approaches that primarily focus on either **digital documents** or **camera-captured documents**, TeleOCR provides a unified framework for both scenarios.
 
-NaviDC-OCR introduces the following key techniques:
+TeleOCR introduces the following key techniques:
 
 - **Multi-node Consensus Voting (MCV)** for automatic pseudo-label generation
 - **Geometry-aware Document Modeling** for camera-captured documents
@@ -37,11 +38,11 @@ NaviDC-OCR introduces the following key techniques:
 - **Progressive Four-Stage Training** pipeline
 - **Content-Structure Decoupled Learning** for tables and formulas
 
-These techniques enable NaviDC-OCR to achieve strong performance across both digital and camera-captured document benchmarks while maintaining a lightweight architecture suitable for practical deployment.
+These techniques enable TeleOCR to achieve strong performance across both digital and camera-captured document benchmarks while maintaining a lightweight architecture suitable for practical deployment.
 
 <div align="center">
 
-<img src="assets/score.png" width="600" alt="NaviDC-OCR benchmark results">
+<img src="assets/score.png" width="600" alt="TeleOCR benchmark results">
 
 </div>
 
@@ -51,11 +52,11 @@ These techniques enable NaviDC-OCR to achieve strong performance across both dig
 
 <div align="center">
 
-<img src="assets/data_engine.png" width="600" alt="NaviDC-OCR data engine">
+<img src="assets/data_engine.png" width="600" alt="TeleOCR data engine">
 
 </div>
 
-NaviDC-OCR adopts an automated data engine consisting of four major components:
+TeleOCR adopts an automated data engine consisting of four major components:
 
 | Component | Description |
 |---|---|
@@ -72,11 +73,11 @@ Most of the generated training data requires **no manual annotation**.
 
 <div align="center">
 
-<img src="assets/model.png" width="600" alt="NaviDC-OCR training pipeline">
+<img src="assets/model.png" width="600" alt="TeleOCR training pipeline">
 
 </div>
 
-NaviDC-OCR is trained through a progressive four-stage training pipeline:
+TeleOCR is trained through a progressive four-stage training pipeline:
 
 | Stage | Objective |
 |---|---|
@@ -91,14 +92,14 @@ This progressive strategy gradually improves the model from basic vision-languag
 
 # 📊 Experimental Results
 
-NaviDC-OCR is evaluated on **OmniDocBench v1.6**, **Wild-OmniDocBench**, **PureDocBench**, and the **ICDAR 2026 Sci-ImageMiner Challenge**.
+TeleOCR is evaluated on **OmniDocBench v1.6**, **Wild-OmniDocBench**, **PureDocBench**, and the **ICDAR 2026 Sci-ImageMiner Challenge**.
 
 > **Bold** indicates the best result, while <u>underline</u> indicates the second-best result.
 > It should be noted that all metrics reported in this report were evaluated using the Docker image provided by OmniDocBench v1.6. For Wild-OmniDocBench, we used the Docker image provided by OmniDocBench v1.6 for evaluation, with the metrics obtained by inspecting the Sub-v1.5 results. PureDocBench was also evaluated using the Docker image provided by OmniDocBench v1.6; however, the ground-truth JSON files were converted from the files provided by PureDocBench. In addition, for the real-world degraded tracks in Wild-OmniDocBench and PureDocBench, we recommend enabling LAYOUT_MODE="Segmentation".
 
 ---
 ## Layout Visualization of Distorted Documents
-To evaluate the model's ability to understand complex document deformations, we conduct a visual evaluation on the public dewarping datasets DocUNet and DIR300, with representative results shown in Figure. NaviDC-OCR directly performs layout and content parsing on distorted documents without dewarping preprocessing or a dedicated rectification model, demonstrating robust parsing under complex geometric deformations.
+To evaluate the model's ability to understand complex document deformations, we conduct a visual evaluation on the public dewarping datasets DocUNet and DIR300, with representative results shown in Figure. TeleOCR directly performs layout and content parsing on distorted documents without dewarping preprocessing or a dedicated rectification model, demonstrating robust parsing under complex geometric deformations.
 <div align="center">
 
 <img src="assets/dir300.png" width="600" alt="Parsing evaluation on the DIR300 dataset.">
@@ -112,12 +113,10 @@ To evaluate the model's ability to understand complex document deformations, we 
 |模型|overall ↑|Text edit ↓|formula cdm ↑|Table teds ↑|order edit ↓|
 |---|---|---|---|---|---|
 |**Specialized VLMs**| | | | | |
-|Navidc‑OCR|67.96|0.1903|0.02|64.97|0.398|
+|TeleOCR|67.96|0.1903|0.02|64.97|0.398|
 |Mineru 2.5 pro|62.26|0.3402|0.04|67.75|0.356|
 |OvisOCR2|59.25|0.3883|0.00|61.59|0.3791|
 |PaddleOCRvl 1.6|55.11 | 0.4364 | 0.21 | 51.34 |0.412 |
-
-
 
 ---
 
@@ -127,7 +126,7 @@ To evaluate the model's ability to understand complex document deformations, we 
 
 | Model Type           | Method            |   Params |    Overall ↑ |  Text Edit ↓ | Formula CDM ↑ | Table TEDS ↑ | Table TEDS-S ↑ | Read Order Edit ↓ |
 | -------------------- | ----------------- | -------: | -----------: | -----------: | ------------: | -----------: | -------------: | ----------------: |
-| **Specialized VLMs** | **NaviDC-OCR**    | **1.2B** |    **96.87** |    <u>0.027<u> |         96.36 |    **97.05** |      **98.52** |      <u>0.122</u> |
+| **Specialized VLMs** | **TeleOCR**    | **1.2B** |    **96.87** |    <u>0.027<u> |         96.36 |    **97.05** |      **98.52** |      <u>0.122</u> |
 |                      | OvisOCR2          |     0.8B | <u>96.58</u> | **0.025** |     **97.53** | <u>94.76</u> |   <u>97.16</u> |         **0.111** |
 |                      | PaddleOCR-VL-1.6  |     0.9B |        96.33 |        0.033 |  <u>97.49</u> | <u>94.76</u> |          97.11 |             0.127 |
 |                      | MinerU2.5-Pro     |     1.2B |        95.75 |        0.036 |         97.45 |        93.42 |          95.92 |             0.120 |
@@ -161,7 +160,7 @@ To evaluate the model's ability to understand complex document deformations, we 
 
 | Model Type          | Method            |   Params |    Overall ↑ | Text Edit ↓ | Formula CDM ↑ | Table TEDS ↑ | Table TEDS-S ↑ | Read Order Edit ↓ |
 | ------------------- | ----------------- | -------: | -----------: | ----------: | ------------: | -----------: | -------------: | ----------------: |
-| **Decoupled VLMs**  | **NaviDC-OCR**    | **1.2B** |    **88.53** |  **0.1173** |         88.26 |    **89.05** |      **92.14** |        **0.2011** |
+| **Decoupled VLMs**  | **TeleOCR**    | **1.2B** |    **88.53** |  **0.1173** |         88.26 |    **89.05** |      **92.14** |        **0.2011** |
 |                     | PaddleOCR-VL-1.6  |     0.9B |        87.36 |      0.1369 |         88.42 | <u>85.76</u> |   <u>90.14</u> |            0.2057 |
 |                     | MinerU2.5-Pro     |     1.2B |        87.33 |      0.1362 |  <u>90.15</u> |        85.46 |          90.12 |     <u>0.2013</u> |
 |                     | GLM-OCR           |     0.9B |        85.08 |      0.1514 |         89.09 |        81.31 |          85.90 |            0.2228 |
@@ -179,7 +178,7 @@ To evaluate the model's ability to understand complex document deformations, we 
 
 | Model Type         | Model             | Clean Overall ↑ | Clean Text ↓ | Clean Formula ↑ | Clean Table ↑ | Digital Degraded Overall ↑ | Digital Degraded Text ↓ | Digital Degraded Formula ↑ | Digital Degraded Table ↑ | Real Degraded Overall ↑ | Real Degraded Text ↓ | Real Degraded Formula ↑ | Real Degraded Table ↑ |
 | ------------------ | ----------------- | --------------: | -----------: | --------------: | ------------: | -------------------------: | ----------------------: | -------------------------: | -----------------------: | ----------------------: | -------------------: | ----------------------: | --------------------: |
-| **Decoupled VLM**  | **NaviDC-OCR**    |       **86.90** |    **0.111** |       **81.01** |     **91.09** |               <u>77.47</u> |                   0.206 |                  **72.59** |                    80.45 |               **70.85** |         <u>0.302</u> |               **65.11** |             **77.66** |
+| **Decoupled VLM**  | **TeleOCR**    |       **86.90** |    **0.111** |       **81.01** |     **91.09** |               <u>77.47</u> |                   0.206 |                  **72.59** |                    80.45 |               **70.85** |         <u>0.302</u> |               **65.11** |             **77.66** |
 |                    | DotsMOCR          |           76.27 |        0.151 |           66.23 |         77.65 |                      73.16 |            <u>0.198</u> |                      64.32 |                    74.95 |                   61.73 |                0.312 |                   54.39 |                 61.97 |
 |                    | MinerU2.5-Pro     |           75.87 |        0.222 |           65.14 |         84.68 |                      71.77 |                   0.272 |                      61.79 |                    80.73 |                   62.56 |                0.375 |                   52.70 |                 72.47 |
 |                    | YouTu-Parsing     |           75.02 |        0.230 |           67.34 |         80.74 |                      69.66 |                   0.270 |                      61.44 |                    74.49 |                   60.29 |                0.360 |                   52.20 |                 64.69 |
@@ -205,7 +204,7 @@ To evaluate the model's ability to understand complex document deformations, we 
 
 |  Rank | Team            |       RMS |      TEDS |  Weighted |
 | ----: | --------------- | --------: | --------: | --------: |
-| **1** | **NaviDC-OCR**  | **17.23** | **66.39** | **41.81** |
+| **1** | **TeleOCR**  | **17.23** | **66.39** | **41.81** |
 |     2 | VLMinators      |     17.29 |     64.31 |     40.80 |
 |     3 | Ricoh_SRCB      |     16.23 |     61.12 |     38.67 |
 |     4 | Vassilis Sioros |     14.94 |     55.20 |     35.07 |
@@ -218,18 +217,18 @@ To evaluate the model's ability to understand complex document deformations, we 
 
 ## 1. Environment Installation
 
-NaviDC-OCR requires **Python 3.10+** and a CUDA-enabled environment for GPU inference.
+TeleOCR requires **Python 3.10+** and a CUDA-enabled environment for GPU inference.
 
 ```bash
-git clone https://github.com/caipeng328/NaviDC-OCR.git
-cd NaviDC-OCR
-conda create -n navidc-ocr python=3.10 -y
-conda activate navidc-ocr
+git clone https://github.com/caipeng328/TeleOCR.git
+cd TeleOCR
+conda create -n teleocr python=3.10 -y
+conda activate teleocr
 ```
 
 ### Install Dependencies
 
-Install NaviDC-OCR and its dependencies in editable mode:
+Install TeleOCR and its dependencies in editable mode:
 
 ```bash
 pip install -e .
@@ -241,7 +240,7 @@ The `-e` option installs the project in **editable mode**, allowing modification
 
 ## 2. Inference
 
-NaviDC-OCR provides `infer.py` for batch inference on document images.
+TeleOCR provides `infer.py` for batch inference on document images.
 
 Before running inference, configure:
 
@@ -263,7 +262,7 @@ python infer.py \
     --result_save_path "${RESULT_SAVE_PATH}" \
     --use_async \
     --override \
-        model_path="StarDoc-AI/NaviDC-OCR" \
+        model_path="StarDoc-AI/TeleOCR" \
         BACKEND="vllm-async-engine" \
         LAYOUT_MODE="Detection"
 ```
@@ -285,11 +284,11 @@ Main Configuration Parameters
 
 # 📝 Citation
 
-If you find NaviDC-OCR useful in your research, please consider citing:
+If you find TeleOCR useful in your research, please consider citing:
 
 ```bibtex
-@article{navidc_ocr,
-  title={NaviDC-OCR: Navigating Document Parsing Across Digital and Camera-Captured Documents},
+@article{teleocr,
+  title={TeleOCR: Navigating Document Parsing Across Digital and Camera-Captured Documents},
   author={Cai, Peng and Zou, Zhaofan and Liu, Shifa and Wang, Yikun and Tang, Jiawei and Yang, Kaicheng and Tong, Meng and He, Zhongjiang and Sun, Hao},
   journal={arXiv preprint arXiv:2608.12898},
   year={2026}
@@ -300,7 +299,7 @@ If you find NaviDC-OCR useful in your research, please consider citing:
 
 # 🙏 Acknowledgements
 
-NaviDC-OCR is built upon the following excellent open-source projects:
+TeleOCR is built upon the following excellent open-source projects:
 
 * [MinerU](https://github.com/opendatalab/MinerU)
 * [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL)
@@ -318,6 +317,6 @@ We sincerely thank the authors and contributors of these projects for their valu
 If you have any questions, suggestions, or issues, please feel free to:
 
 * Open an issue in this repository
-* Contact the NaviDC-OCR authors
+* Contact the TeleOCR authors
 
 

@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "NaviOCR-vllm"
+name = "TeleOCR-vllm"
 version = "0.1.0"
-description = "Out-of-tree vLLM model plugin for NaviOCR-1B."
+description = "Out-of-tree vLLM model plugin for TeleOCR-1B."
 requires-python = ">=3.10"
 dependencies = [
   "vllm==0.11.0",
@@ -14,7 +14,7 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["NaviOCR_vllm*"]
+include = ["TeleOCR_vllm*"]
 
 [project.entry-points."vllm.general_plugins"]
-NaviOCR_vllm = "NaviOCR_vllm:register" 
+TeleOCR_vllm = "TeleOCR_vllm:register" 

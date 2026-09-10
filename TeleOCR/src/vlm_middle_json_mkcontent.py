@@ -2,10 +2,10 @@ import os
 
 from loguru import logger
 
-from NaviOCR.tools.char_utils import full_to_half_exclude_marks, is_hyphen_at_line_end
-from NaviOCR.tools.config_reader import get_latex_delimiter_config
-from NaviOCR.tools.enum_class import BlockType, ContentType
-from NaviOCR.tools.language import detect_lang
+from TeleOCR.tools.char_utils import full_to_half_exclude_marks, is_hyphen_at_line_end
+from TeleOCR.tools.config_reader import get_latex_delimiter_config
+from TeleOCR.tools.enum_class import BlockType, ContentType
+from TeleOCR.tools.language import detect_lang
 
 
 def merge_para_with_text(para_block):
