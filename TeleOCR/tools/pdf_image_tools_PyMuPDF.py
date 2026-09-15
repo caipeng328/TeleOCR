@@ -168,6 +168,7 @@ def load_images_from_pdf(
                 range_start,
                 range_end,
                 image_type,
+                admission_timeout=timeout,
             )
             futures.append((range_start, future))
 

@@ -56,11 +56,14 @@ class _RenderExecutor:
         self.pool = ProcessPoolExecutor(
             max_workers=workers, mp_context=multiprocessing.get_context("spawn"))
 
-    def submit(self, function, *args):
+    def submit(self, function, *args, admission_timeout=None):
         import TeleOCR.config as config
+        from TeleOCR.tools.os_env_config import get_load_images_timeout
         values = {k: v for k, v in vars(config).items()
                   if k.isupper() and isinstance(v, (str, int, float, bool, type(None)))}
-        self.slots.acquire()
+        timeout = get_load_images_timeout() if admission_timeout is None else admission_timeout
+        if not self.slots.acquire(timeout=timeout):
+            raise TimeoutError("Timed out waiting for a PDF render worker")
         try:
             future = self.pool.submit(_call_render, function, args, values)
         except BaseException:

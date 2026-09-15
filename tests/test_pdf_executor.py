@@ -98,6 +98,27 @@ def test_running_jobs_keep_admission_after_cancel(monkeypatch):
     submitted[1].set_result(2)
 
 
+def test_saturated_worker_admission_times_out_without_releasing_running_slot(monkeypatch):
+    from concurrent.futures import Future
+    import TeleOCR.tools.pdf_executor as module
+    class FakePool:
+        def __init__(self, **kwargs):
+            pass
+        def submit(self, *args):
+            future = Future()
+            future.set_running_or_notify_cancel()
+            return future
+    monkeypatch.setattr(module, 'ProcessPoolExecutor', FakePool)
+    pool = module._RenderExecutor(1)
+    first = pool.submit(worker_pid)
+    with pytest.raises(TimeoutError, match='waiting for a PDF render worker'):
+        pool.submit(worker_pid, admission_timeout=0.02)
+    assert not first.done()
+    first.set_result(1)
+    second = pool.submit(worker_pid, admission_timeout=0.02)
+    second.set_result(2)
+
+
 @pytest.mark.asyncio
 async def test_cpu_work_does_not_block_loop_and_uses_one_native_thread():
     loop_thread = threading.get_ident()
