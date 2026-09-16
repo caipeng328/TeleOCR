@@ -8,6 +8,8 @@
 [![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Model-orange.svg)](https://huggingface.co/StarDoc-AI/TeleOCR)
 [![Papers with Code: SOTA on OmniDocBench v1.6](https://paperswithcode.co/api/v1/papers/2608.12898/leaderboard-badge.svg?eval=25856&live=1)](https://paperswithcode.co/api/v1/papers/2608.12898/leaderboard-badge-link?eval=25856)
 
+[![TeleAI](https://cdn02.teleai.com.cn/ssr_static/img/head-logo.CLCS1sO7.svg)](https://www.teleai.com.cn/docparse/DocumentParsing)
+
 **A lightweight Vision-Language Model for unified document parsing across digital and camera-captured documents.**
 
 </div>
