@@ -7,8 +7,9 @@
 [![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 [![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Model-orange.svg)](https://huggingface.co/StarDoc-AI/TeleOCR)
 [![Papers with Code: SOTA on OmniDocBench v1.6](https://paperswithcode.co/api/v1/papers/2608.12898/leaderboard-badge.svg?eval=25856&live=1)](https://paperswithcode.co/api/v1/papers/2608.12898/leaderboard-badge-link?eval=25856)
+[![TeleAI](https://img.shields.io/badge/webapp_on_teleai.com-blue?logo=data:image/png;base64,UklGRpICAABXRUJQVlA4WAoAAAAQAAAAFQAAGAAAQUxQSEwBAAABkGvb2rFXb5zauQCbVTrbNjt1tm3bObZt6zeObdvft4v30yVExASwkqKChaQVLH6f2vcKeHqAunMTHz9x/D9Y/+2cVtX1+dAbjLX8lck4cH1c37S4Z3DT/NznjkmlWs6lXv26sf/K0rFlmWzkwIGHOo6/qhvqaxdlN+Vnrt9Q6a8pvnPpNRqtTqPV6bUajUar/cXB/xsChfT71DISHCg+UzIjweRb5uOO/2KuLxw5duTS4w96Qf+aS89/BfBe193AUFXUFbuftx4DeHkELnsB/A0EZfPs1j0Ar099tz8D4LfbfQDsQuHmW3+Yv/pN5f0sgIcWS6Cf7dq1t2XHnu13Qc8R1/cUsOU1vq2C84sXIUm/OC6EzMXu5PiVQwghUW8prAUMM9SrLMLpvPwf/D9WnQl/2FGW67g/EWwQefw/cDnNlIg1StxXYE74AVZQOCAgAQAAkAcAnQEqFgAZAD7RVKZNqCQjojAYCAEAGglsAJ0zND+A2rdxh/l2DrrSwNZEPJb8c9uqnP90eUrVexSs2yAJSFsrsI8AAP03X4scCDMKfncvKAr9aIf33A4Lc9xfcBVOo9hotIZIL1kpgEs0hdr2CPz/BVzkPcV5X2+ZdiEn0NWI16mvKRFSI/HYHhAAT9NP3KwVp1une4gB+ernhg1Ly0KuLdqCAZXWQHJzTrrR8RNz79tgl7Aq8WHqxbOTfguubnUbMPaD4DfKY71NjLtozHqNKPSC6gxIS3UNlbGZT3m3zEus+sjwYwucztbFfyH6n4U8VoWfQf4UdhLuoylwhqzt+FoCGwH4pHiWv/pkL2Z/bt9h755P3YDljRFfAAAA&labelColor=white)](https://www.teleai.com.cn/docparse/DocumentParsing)
 
-[![TeleAI](https://cdn02.teleai.com.cn/ssr_static/img/head-logo.CLCS1sO7.svg)](https://www.teleai.com.cn/docparse/DocumentParsing)
+
 
 **A lightweight Vision-Language Model for unified document parsing across digital and camera-captured documents.**
 
