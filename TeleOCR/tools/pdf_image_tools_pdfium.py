@@ -15,7 +15,8 @@ from TeleOCR.tools.pdf_reader import image_to_b64str, image_to_bytes, page_to_im
 from TeleOCR.tools.enum_class import ImageType
 from TeleOCR.tools.hash_utils import str_sha256
 from TeleOCR.tools.pdf_page_id import get_end_page_id
-from concurrent.futures import ProcessPoolExecutor, TimeoutError as FuturesTimeoutError
+from concurrent.futures import TimeoutError as FuturesTimeoutError
+from TeleOCR.tools.pdf_executor import shared_pdf_executor
 
 def convert_pdf_bytes_to_bytes(pdf_bytes, valid_single_page_ids=None):
     pdf = pdfium.PdfDocument(pdf_bytes)
@@ -144,7 +145,7 @@ def load_images_from_pdf(
             page_ranges.append((range_start, range_end))
 
 
-        with ProcessPoolExecutor(max_workers=actual_threads) as executor:
+        with shared_pdf_executor(max(1, CONFIG.PDF_TOOLS_WORKER_MAX_NUM), on_error=pdf_doc.close) as executor:
             # 提交所有任务
             futures = []
             for range_start, range_end in page_ranges:
@@ -155,6 +156,7 @@ def load_images_from_pdf(
                     range_start,
                     range_end,
                     image_type,
+                    admission_timeout=timeout,
                 )
                 futures.append((range_start, future))
 
@@ -173,8 +175,8 @@ def load_images_from_pdf(
 
                 return images_list, pdf_doc
             except FuturesTimeoutError:
-                pdf_doc.close()
-                executor.shutdown(wait=False, cancel_futures=True)
+                for _, future in futures:
+                    future.cancel()
                 raise TimeoutError(f"PDF to images conversion timeout after {timeout}s")
 
 
@@ -265,4 +267,3 @@ def images_bytes_to_pdf_bytes(image_bytes):
 def get_page_size(page):
     w, h = page.get_size()
     return (w, h)
-    

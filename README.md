@@ -243,6 +243,29 @@ The `-e` option installs the project in **editable mode**, allowing modification
 
 ## 2. Inference
 
+### Concurrent asynchronous PDF calls
+
+The asynchronous PDF pipeline keeps native PDF preparation, rendering and output
+projection off the inference event loop. Native PDF operations are serialized on
+one dedicated thread; rendering uses a bounded, reusable **spawn** process pool,
+so it does not fork a CUDA-initialized parent or create a new pool per document.
+GPU inference remains on the caller's event loop.
+
+Configure `PDF_TOOLS_WORKER_MAX_NUM` before the first PDF call. To change it in a
+long-lived process, first drain outstanding calls, then call
+`TeleOCR.tools.pdf_executor.shutdown_pdf_workers()`. A timed-out render cancels
+its pending futures without shutting down another request's workers; running
+native operations may still finish. Cancellation of an asynchronous CPU stage
+waits for that stage before allowing caller cleanup. Applications should retain
+their own document/page admission limits: a fixed worker pool does not bound the
+number of already-rendered documents waiting for inference.
+
+CPU-only regression tests (no model weights required):
+
+```bash
+python -m pytest -q tests/test_pdf_executor.py tests/test_pdf_render_pool.py tests/test_async_pdf_pipeline.py
+```
+
 TeleOCR provides `infer.py` for batch inference on document images.
 
 Before running inference, configure:
@@ -321,5 +344,4 @@ If you have any questions, suggestions, or issues, please feel free to:
 
 * Open an issue in this repository
 * Contact the TeleOCR authors
-
 
