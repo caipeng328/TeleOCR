@@ -44,7 +44,7 @@ LAYOUT_PROMPTS = {
 DEFAULT_PROMPTS: dict[str, str] = {
     "text":"\nPlease output the text content from the image.",
     "table":"\nThis is the image of a table. Please output the table in OTSL format.",
-    "formula":"\nPlease write out the expression of the formula in the image using LaTeX format.",
+    "equation":"\nPlease write out the expression of the formula in the image using LaTeX format.",
     "code":"\nThe image contains a code snippet, please output the parsing result.",
     "layout":"\nAnalyze the image layout.",
     "seal":"\nSeal Recognition:",
@@ -57,7 +57,7 @@ DEFAULT_PROMPTS: dict[str, str] = {
 DEFAULT_SAMPLING_PARAMS: dict[str, SamplingParams] = {
     "text":TeleOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.05),
     "table":TeleOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.005),
-    "formula":TeleOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.05),
+    "equation":TeleOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.05),
     "code":TeleOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.05),
     "char":TeleOCRSamplingParams(presence_penalty=1.0, frequency_penalty=0.005),
     "layout":TeleOCRSamplingParams(),
