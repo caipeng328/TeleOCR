@@ -1,0 +1,310 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* 中性色：带一丝绿味的纸白与石墨黑，让酸绿有地方落脚 */
+    --background: 80 24% 98%;
+    --foreground: 84 14% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 84 14% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 84 14% 11%;
+
+    /* 酸绿主色：只做填充，永远配近黑文字 */
+    --primary: 74 100% 50%;
+    --primary-foreground: 84 40% 9%;
+    /* 酸绿的墨水变体：浅底上的绿色文字与图标用它（对白底 6:1） */
+    --primary-ink: 79 92% 24%;
+
+    --secondary: 78 42% 94%;
+    --secondary-foreground: 82 22% 24%;
+    --muted: 80 18% 96%;
+    --muted-foreground: 82 9% 40%;
+    --accent: 76 74% 88%;
+    --accent-foreground: 82 30% 18%;
+
+    /* 正红：绿的补色，报错时最跳 */
+    --destructive: 356 80% 54%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 82 16% 88%;
+    --input: 82 16% 84%;
+    --ring: 74 100% 45%;
+    --radius: 0.625rem;
+
+    /* 工具条：石墨黑底，让酸绿有反衬面 */
+    --toolbar: 84 16% 12%;
+    --toolbar-foreground: 78 26% 92%;
+    --toolbar-muted: 82 10% 60%;
+    --toolbar-border: 84 14% 20%;
+
+    /* 联动高亮：酸绿荧光笔铺底 + 深绿描边定形 */
+    --highlight: 74 100% 50%;
+    --highlight-ring: 79 88% 30%;
+    --highlight-bg: 74 100% 50% / 0.35;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+/* PDF ↔ Markdown 联动高亮 */
+.highlightable,
+.highlight-overlay {
+  scroll-margin: 40px;
+}
+
+.highlightable {
+  @apply cursor-pointer rounded-sm outline-2 outline-transparent outline-offset-2;
+  display: inline;
+}
+
+.highlightable.md-title {
+  display: block;
+}
+
+.highlightable.md-text {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.highlightable.md-math-block {
+  display: block;
+  margin: 0.75rem 0 1rem;
+}
+
+.highlightable.active {
+  outline-color: hsl(var(--highlight-ring));
+  background: hsl(var(--highlight-bg));
+}
+
+.highlightable.md-title h1,
+.highlightable.md-title h2 {
+  margin: 0;
+}
+
+.highlightable.md-text p {
+  margin: 0;
+}
+
+.highlightable.md-ref {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.highlightable.md-ref p {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.highlightable.md-header {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.highlightable.md-header p {
+  margin: 0;
+  font-size: 0.75rem;
+  @apply text-muted-foreground;
+}
+
+.highlightable.md-image-block,
+.highlightable.md-table-block {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.highlight-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: auto;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 2px transparent;
+}
+
+.highlight-overlay.active {
+  box-shadow: inset 0 0 0 2px hsl(var(--highlight-ring));
+  background: hsl(var(--highlight-bg));
+}
+
+.pdf-page-wrapper {
+  position: relative;
+  display: inline-block;
+  background: #fff;
+  box-shadow: 0 2px 8px hsl(84 14% 11% / 0.12);
+  line-height: 0;
+}
+
+.pdf-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.pdf-pages {
+  @apply flex flex-col gap-4;
+}
+
+/* 面板分割线：与工具条等高（h-11 = 2.75rem）的一段走深色，
+   避免一条浅线横穿石墨黑工具条 */
+.panel-divider {
+  background-image: linear-gradient(
+    to bottom,
+    hsl(var(--toolbar-border)) 2.75rem,
+    hsl(var(--border)) 2.75rem
+  );
+}
+
+.markdown-body h1 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body h2 {
+  font-size: 1.25rem;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.markdown-body p {
+  margin-bottom: 0.75rem;
+}
+
+.md-inline-paragraph {
+  line-height: 2;
+}
+
+.md-math-block {
+  display: block;
+  margin: 0.75rem 0 1rem;
+  text-align: center;
+}
+
+.md-math-inline {
+  display: inline;
+}
+
+.md-list {
+  margin-bottom: 0.75rem;
+}
+
+.md-page-section {
+  margin-bottom: 2rem;
+}
+
+.md-page-section:not(:last-child) {
+  padding-bottom: 2rem;
+  border-bottom: 1px dashed hsl(var(--border));
+}
+
+.md-page-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  @apply text-muted-foreground mb-4;
+}
+
+.md-image-placeholder,
+.md-table-placeholder {
+  @apply bg-muted border border-dashed border-border rounded-md p-6 text-center text-muted-foreground text-sm;
+}
+
+.md-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+  border-radius: 0.5rem;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--muted));
+}
+
+.md-caption,
+.highlightable.md-image-block figcaption {
+  margin-top: 8px;
+  font-size: 0.875rem;
+  @apply text-muted-foreground text-center;
+}
+
+.md-table {
+  overflow-x: auto;
+  font-size: 0.8rem;
+}
+
+.md-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.md-table td,
+.md-table th {
+  border: 1px solid hsl(var(--border));
+  padding: 4px 8px;
+}
+
+.katex {
+  font-size: 1.05em;
+}
+
+.katex-display {
+  margin: 0;
+}
+
+/* Transitions.dev — Icon swap */
+:root {
+  --icon-swap-dur: 250ms;
+  --icon-swap-blur: 2px;
+  --icon-swap-start-scale: 0.25;
+  --icon-swap-ease: ease-in-out;
+}
+
+.t-icon-swap {
+  position: relative;
+  display: inline-grid;
+}
+
+.t-icon-swap .t-icon {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    opacity var(--icon-swap-dur) var(--icon-swap-ease),
+    filter var(--icon-swap-dur) var(--icon-swap-ease),
+    transform var(--icon-swap-dur) var(--icon-swap-ease);
+  will-change: opacity, filter, transform;
+}
+
+.t-icon-swap[data-state='a'] .t-icon[data-icon='a'],
+.t-icon-swap[data-state='b'] .t-icon[data-icon='b'] {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1);
+}
+
+.t-icon-swap[data-state='a'] .t-icon[data-icon='b'],
+.t-icon-swap[data-state='b'] .t-icon[data-icon='a'] {
+  opacity: 0;
+  filter: blur(var(--icon-swap-blur));
+  transform: scale(var(--icon-swap-start-scale));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-icon-swap .t-icon {
+    transition: none !important;
+  }
+}
+
