@@ -27,11 +27,17 @@ def blocks_to_page_info(page_blocks,image_dict,page,image_writer,page_index) -> 
 
 def result_to_middle_json(model_output_blocks_list, images_list, pdf_doc, image_writer):
     middle_json = {"pdf_info": [],"_backend": "vlm","_version_name": __version__,}
-    for index, page_blocks in enumerate(tqdm(model_output_blocks_list)):
-        page = pdf_doc[index]
-        image_dict = images_list[index]
-        page_info = blocks_to_page_info(page_blocks,image_dict,page,image_writer,index)
-        middle_json['pdf_info'].append(page_info)
-    
-    pdf_doc.close()
+    try:
+        for index, page_blocks in enumerate(tqdm(model_output_blocks_list)):
+            page = pdf_doc[index]
+            try:
+                image_dict = images_list[index]
+                page_info = blocks_to_page_info(
+                    page_blocks, image_dict, page, image_writer, index
+                )
+                middle_json['pdf_info'].append(page_info)
+            finally:
+                page.close()
+    finally:
+        pdf_doc.close()
     return middle_json
