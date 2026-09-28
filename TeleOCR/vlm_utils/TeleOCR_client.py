@@ -9,6 +9,7 @@ from PIL import Image, ImageDraw
 import numpy as np
 from .post_process import post_process
 from .structs import BLOCK_TYPES, ContentBlock
+from .extraction_validation import RegionExtractionError, validate_bbox, validate_output_count
 from .vlm_client import DEFAULT_SYSTEM_PROMPT, SamplingParams, new_vlm_client
 from .vlm_client.utils import gather_tasks, get_png_bytes, get_rgb_image
 import TeleOCR.config as CONFIG
@@ -235,10 +236,7 @@ class TeleOCRClientHelper:
         for idx, block in enumerate(blocks):
             if block.type in skip_list:
                 continue
-            pts = np.array(block.bbox, dtype=np.float32).reshape(-1, 2)
-            pts[:, 0] *= width
-            pts[:, 1] *= height
-            pts = pts.astype(np.int32)
+            pts = np.array(validate_bbox(block.bbox, width, height, idx), dtype=np.int32)
             try:
                 # -------- rectangle --------
                 if len(pts) == 2:
@@ -256,12 +254,11 @@ class TeleOCRClientHelper:
                     cv2.fillPoly(mask, [pts_shift], 255)
                     crop_np = cv2.bitwise_and(crop_np, crop_np, mask=mask)
                     crop = Image.fromarray(crop_np)
-            except:
-                continue
+            except Exception as exc:
+                raise RegionExtractionError(f"Region {idx}: crop construction failed") from exc
             
             if crop.width < 1 or crop.height < 1:
-                print("Warning: invalid crop size")
-                continue
+                raise RegionExtractionError(f"Region {idx}: crop has zero width or height")
             if block.angle in [90, 180, 270]:
                 crop = crop.rotate(block.angle, expand=True)
             crop = self.resize_by_need(crop)
@@ -636,6 +633,7 @@ class TeleOCRClient:
             all_params.extend(params)
             all_indices.extend([(img_idx, idx) for idx in indices])
         outputs = self.client.batch_predict(all_images, all_prompts, all_params, priority)
+        validate_output_count(all_indices, outputs)
         for (img_idx, idx), output in zip(all_indices, outputs):
             blocks_list[img_idx][idx].content = output
         blocks_list = self.helper.batch_post_process(self.executor, blocks_list)
@@ -701,6 +699,7 @@ class TeleOCRClient:
             use_tqdm=self.use_tqdm,
             tqdm_desc="Extraction",
         )
+        validate_output_count(all_indices, outputs)
         for (img_idx, idx), output in zip(all_indices, outputs):
             blocks_list[img_idx][idx].content = output
         blocks_list = await gather_tasks(
@@ -720,6 +719,7 @@ class TeleOCRClient:
         blocks = self.layout_detect(image, priority)
         block_images, prompts, params, indices = self.helper.prepare_for_extract(image, blocks, not_extract_list)
         outputs = self.client.batch_predict(block_images, prompts, params, priority)
+        validate_output_count(indices, outputs)
         for idx, output in zip(indices, outputs):
             blocks[idx].content = output
         return self.helper.post_process(blocks)
@@ -747,6 +747,7 @@ class TeleOCRClient:
 
         outputs = await self.client.aio_batch_predict(block_images, prompts, params, priority, semaphore=semaphore)
         
+        validate_output_count(indices, outputs)
         for idx, output in zip(indices, outputs):
             blocks[idx].content = output
         result = await self.helper.aio_post_process(self.executor, blocks)
@@ -819,6 +820,7 @@ class TeleOCRClient:
             all_params.extend(params)
             all_indices.extend([(img_idx, idx) for idx in indices])
         outputs = self.client.batch_predict(all_images, all_prompts, all_params, priority)
+        validate_output_count(all_indices, outputs)
         for (img_idx, idx), output in zip(all_indices, outputs):
             blocks_list[img_idx][idx].content = output
         return self.helper.batch_post_process(self.executor, blocks_list)
@@ -864,6 +866,7 @@ class TeleOCRClient:
             use_tqdm=self.use_tqdm,
             tqdm_desc="Extraction",
         )
+        validate_output_count(all_indices, outputs)
         for (img_idx, idx), output in zip(all_indices, outputs):
             blocks_list[img_idx][idx].content = output
         return await gather_tasks(
