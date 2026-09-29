@@ -1,0 +1,31 @@
+# 追加到 Caddy 站点块（如 www.wave-n-rose.com { ... }）中
+# 静态文件目录挂载到 Caddy 容器内 /srv/pdf-md/dist
+# 用 route { } 包住，确保 catch-all 不会抢先匹配
+#
+# 这里只负责静态站点。OCR 接口由浏览器直连（服务端已配 CORS），
+# 地址见项目根目录 ocr.config.ts，不需要反向代理。
+
+route {
+	handle /pdf {
+		redir /pdf/ permanent
+	}
+
+	# 静态站点（index.html + assets/）
+	handle /pdf/ {
+		uri strip_prefix /pdf
+		root * /srv/pdf-md/dist
+		try_files {path} /index.html
+		file_server
+	}
+
+	handle /pdf/* {
+		uri strip_prefix /pdf
+		root * /srv/pdf-md/dist
+		try_files {path} /index.html
+		file_server
+	}
+
+	handle {
+		reverse_proxy 172.21.0.1:8080
+	}
+}

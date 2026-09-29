@@ -1,0 +1,20 @@
+# 复制到服务器，例如 /etc/nginx/sites-available/your-site.conf
+#
+# 这里只负责静态站点。OCR 接口由浏览器直连（服务端已配 CORS），
+# 地址见项目根目录 ocr.config.ts，不需要反向代理。
+
+server {
+    listen 80;
+    server_name your-domain.com;
+    # 建议配置 HTTPS（certbot 等）后 listen 443 ssl
+
+    # 静态站点：构建产物放到 /var/www/pdf-md/dist
+    location = /pdf {
+        return 301 /pdf/;
+    }
+
+    location /pdf/ {
+        alias /var/www/pdf-md/dist/;
+        index index.html;
+    }
+}
