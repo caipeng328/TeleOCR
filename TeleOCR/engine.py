@@ -9,6 +9,7 @@ from TeleOCR.tools.draw_bbox import draw_layout_bbox
 from TeleOCR.src.vlm_middle_json_mkcontent import union_make
 from TeleOCR.src.vlm_analyze import doc_analyze
 from TeleOCR.src.vlm_analyze import aio_doc_analyze 
+from TeleOCR.tools.pdf_executor import run_pdf_cpu
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
@@ -65,7 +66,7 @@ async def _async_process_vlm(output_dir, pdf_file_names, pdf_bytes_list, **kwarg
     results = []
     for idx, pdf_bytes in enumerate(pdf_bytes_list):
         pdf_file_name = pdf_file_names[idx]
-        local_image_dir, local_md_dir = prepare_env(output_dir, pdf_file_name)
+        local_image_dir, local_md_dir = await run_pdf_cpu(prepare_env, output_dir, pdf_file_name)
         image_writer = ImageDataWriter(local_image_dir)
         vlm_doc_analyze_time = time.time()
         middle_json = await aio_doc_analyze(
@@ -78,11 +79,11 @@ async def _async_process_vlm(output_dir, pdf_file_names, pdf_bytes_list, **kwarg
         md_writer = FileBasedDataWriter(local_md_dir)
         
         process_output_time = time.time()
-        _process_output(
+        await run_pdf_cpu(_process_output,
             pdf_info, pdf_bytes, pdf_file_name, local_md_dir, local_image_dir,
             md_writer, middle_json
         )
-        image_writer.save_all_images()
+        await run_pdf_cpu(image_writer.save_all_images)
         process_output_time = round(time.time() - process_output_time, 2)
         logger.debug(f"process_output_time cost: {process_output_time}")
         results.append(middle_json)
@@ -140,7 +141,7 @@ async def aio_do_parse(
         valid_page_ids: list[list[int] | None],
         **kwargs,
 ):
-    pdf_bytes_list = _prepare_pdf_bytes(pdf_bytes_list, valid_page_ids)
+    pdf_bytes_list = await run_pdf_cpu(_prepare_pdf_bytes, pdf_bytes_list, valid_page_ids)
     Results = await _async_process_vlm(
         output_dir, pdf_file_names, pdf_bytes_list, **kwargs,
     )
