@@ -283,6 +283,10 @@ Main Configuration Parameters
 
 ---
 
+## 🧩 Community
+
+- [CNAPS Studio](https://docs.cnaps.ai/teleocr) - you can try TeleOCR in the browser, nothing to install. Layout, text, table and formula all work, and it can be connected with other models in one workflow.
+
 # 📝 Citation
 
 If you find TeleOCR useful in your research, please consider citing:
